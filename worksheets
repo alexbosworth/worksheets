@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+const {readFile} = require('fs');
+const {writeFile} = require('fs');
+
+const prog = require('caporal');
+
+const {createXlsx} = require('./xlsx');
+const {version} = require('./package');
+
+const {cwd} = process;
+const flatten = arr => [].concat(...arr);
+
+prog
+  .version(version)
+
+  // Create an xlsx
+  .command('xlsx', 'Create an XLSX')
+  .argument('<named>', 'Name for the XLSX file')
+  .option('--csv <path>', 'Add CSV as a worksheet in XLSX')
+  .action((args, options, logger) => {
+    return createXlsx({
+      csvs: flatten([options.csv].filter(n => !!n)),
+      directory: cwd(),
+      fs: {getFile: readFile, putFile: writeFile},
+      named: args.named,
+    });
+  });
+
+prog.parse(process.argv);

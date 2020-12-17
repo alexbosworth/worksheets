@@ -1,0 +1,43 @@
+{
+  "author": {
+    "name": "Alex Bosworth",
+    "url": "https://twitter.com/alexbosworth"
+  },
+  "bin": {
+    "worksheets": "worksheets"
+  },
+  "bugs": {
+    "url": "https://github.com/alexbosworth/worksheets/issues"
+  },
+  "dependencies": {
+    "async": "3.2.0",
+    "asyncjs-util": "1.2.3",
+    "caporal": "1.4.0",
+    "csv-parse": "4.14.1",
+    "excel4node": "1.7.2",
+    "sanitize-filename": "1.6.3"
+  },
+  "description": "Worksheets CLI",
+  "devDependencies": {
+    "tap": "14.11.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "cli",
+    "csv",
+    "xslx"
+  ],
+  "license": "MIT",
+  "name": "worksheets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexbosworth/worksheets.git"
+  },
+  "scripts": {
+    "postpack": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag -s v$PACKAGE_VERSION -m v$PACKAGE_VERSION && git push github --tags",
+    "test": "tap -t 60 test/xlsx/*.js"
+  },
+  "version": "1.0.0"
+}
